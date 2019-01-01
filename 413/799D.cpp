@@ -2,51 +2,56 @@
 using namespace std;
 typedef uint64_t ull;
 typedef int64_t  ll;
-
-
-ll solveit(ll h, ll w, ll a, ll b, vector<ll> sizes) {
-    // First, find the minimum index we definitely need.
-    if (a <= h && b <= w) return 0;
-
-    if (a <= h) {
-        ll have   = w;
-        ll needed = b;
-        ll idx = 0;
-        for (auto s : sizes) {
-            have *= s; idx++;
-            if (have >= needed) return idx;
-        }
-        return -1;
-    }
-
-    ll have = h * w;
-    ll needed = a * b;
-    ll idx = 0
-    for (auto s : sizes) {
-        have *= s; idx++;
-        if (have > needed) break;
-    }
-
-}
-
+const ll infll = 9223372036854775807LL;
 
 void solve() {
     ll a,b,h,w,n;
     cin >> a >> b >> h >> w >> n;
-    vector<ll> sizes()
-    for (ll i = 0; i < n; i++) {
-        ll x; cin >> x;
-        if (x > 1) { sizes.push_back(x); }
+    vector<ll> sizes(n);
+    for (ll i = 0; i < n; i++) { cin >> sizes[i]; }
+    std::sort(sizes.begin(), sizes.end());
+    std::reverse(sizes.begin(), sizes.end());
+ 
+    ll targa, targb;
+    ll best = infll;
+
+    function<bool(ll,ll,ll,ll)> dfs = [&](ll a, ll b, ll i, ll imax) {
+        //cout << "DEBUG: "  << a << " " << b << " " << i << " " << best << endl;
+        if (a >= targa && b >= targb) { return true; }
+        if (i >  imax) { return false; }
+
+        if (sizes[i] == 2) { 
+            while (i <= imax && a < targa) { a *= 2; i++; }
+            while (i <= imax && b < targb) { b *= 2; i++; }
+            return (a >= targa && b >= targb);
+        }
+
+        return (a < targa) && dfs(a*sizes[i],b,i+1,imax) || (b < targb) &&  dfs(a, b*sizes[i],i+1,imax);
+    };
+
+    for (ll ii = 0; ii < 2; ii++) {
+        targa = (a + (h-1)) / h;
+        targb = (b + (w-1)) / w;
+        ll targprod = targa * targb;
+        ll prod = 1;
+        if (targprod == 1) { cout << 0 << endl; return; }
+        for (ll i = 0; i < n; i++) {
+            if (sizes[i] == 1) break;
+            if (prod < targprod) prod *= sizes[i];
+            if ((prod >= targprod) && dfs(1,1,0,i)) { best = min(best,i+1); break;}
+        }
+        ll temp;
+        temp = h; h = w; w = temp;
     }
-    sizes.sort(sizes.begin(),sizes.end(),greater<ll>);
-    ll m1 = solveit(h,w,a,b,sizes);
-    ll m2 = solveit(h,w,b,a,sizes);
+        
+    if (best == infll) { cout << -1 << endl; }
+    else               { cout << best << endl; }
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    //freopen("782E.in3","r",stdin);
+    //freopen("799D.in3","r",stdin);
     solve();
     return 0;
 }

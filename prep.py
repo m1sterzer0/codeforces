@@ -8,15 +8,17 @@ dummyCppFile = '''#include <bits/stdc++.h>
 using namespace std;
 typedef uint64_t ull;
 typedef int64_t  ll;
+const ll infll = 9223372036854775807LL;
+
 
 void solve() {
-    
+    return;
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    //freopen("782E.in3","r",stdin);
+    //freopen("999A.in1","r",stdin);
     solve();
     return 0;
 }
@@ -73,9 +75,7 @@ cCppPropertiesJsonFile = '''{
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}",
-                "C:\\\\mingw-w64\\\\mingw64\\\\x86_64-w64-mingw32\\\\include",
-                "C:\\\\mingw-w64\\\\mingw64\\\\lib\\\\gcc\\\\x86_64-w64-mingw32\\\\8.1.0\\\\include\\\\c++"
+                "${workspaceFolder}"
             ],
             "defines": [
                 "_DEBUG",
@@ -83,15 +83,9 @@ cCppPropertiesJsonFile = '''{
                 "_UNICODE"
             ],
             "compilerPath": "C:/mingw-w64/mingw64/bin/g++.exe",
-            "intelliSenseMode": "clang-x64",
+            "intelliSenseMode": "gcc-x64",
             "cStandard": "c11",
-            "cppStandard": "c++17",
-            "browse": {
-                "path": [
-                    "${workspaceFolder}"
-                ],
-                "limitSymbolsToIncludedHeaders": true,
-                "databaseFilename": ""
+            "cppStandard": "c++14"
             }
         }
     ],
