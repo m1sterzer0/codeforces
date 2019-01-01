@@ -86,7 +86,6 @@ cCppPropertiesJsonFile = '''{
             "intelliSenseMode": "gcc-x64",
             "cStandard": "c11",
             "cppStandard": "c++14"
-            }
         }
     ],
     "version": 4
