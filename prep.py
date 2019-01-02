@@ -33,7 +33,7 @@ tasksJsonFile = '''{
             "label": "build",
             "type": "shell",
             "command": "g++",
-            "args": [ "-g", "${file}" ],
+            "args": [ "-g", "-Wall", "${file}" ],
             "group": { "kind": "build", "isDefault": true }
         }
     ]
