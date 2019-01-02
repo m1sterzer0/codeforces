@@ -39,40 +39,43 @@ void solve() {
     q.push({start,-1});
     ll lastNode = -1;
     while (!q.empty()) {
-        ll n = q.front().first;
-        ll p = q.front().second;
+        ll nn = q.front().first;
+        ll pp = q.front().second;
         q.pop();
-        if (parent[n] > -2) continue; // been here before
-        parent[n] = p;
-        lastNode = n;
+        if (parent[nn] > -2) continue; // been here before
+        parent[nn] = pp;
+        lastNode = nn;
         int i,j;
         bool lr,ud;
-        decode(i,j,lr,ud,n);
+        //cout << "DEBUG: " << i << " " << j << " " << lr << " " << ud << endl;
+        decode(i,j,lr,ud,nn);
         if (board[j][i] == 'F') break;
 
-        if (j > 0   && board[j-1][i] != '*' && (ud || j == n-1 || board[j+1][i] != '*')) { q.push({encode(i,j-1,lr,true), n}); } //up
-        if (j < n-1 && board[j+1][i] != '*' && (ud || j == 0   || board[j-1][i] != '*')) { q.push({encode(i,j+1,lr,true), n}); } //down
-        if (i > 0   && board[j][i-1] != '*' && (lr || i == m-1 || board[j][i+1] != '*')) { q.push({encode(i-1,j,true,ud), n}); } //left
-        if (i < m-1 && board[j][i+1] != '*' && (lr || i == 0   || board[j][i-1] != '*')) { q.push({encode(i+1,j,true,ud), n}); } //right
+        if (j > 0   && board[j-1][i] != '*' && (ud || j == n-1 || board[j+1][i] != '*')) { q.push({encode(i,j-1,lr,true), nn}); } //up
+        if (j < n-1 && board[j+1][i] != '*' && (ud || j == 0   || board[j-1][i] != '*')) { q.push({encode(i,j+1,lr,true), nn}); } //down
+        if (i > 0   && board[j][i-1] != '*' && (lr || i == m-1 || board[j][i+1] != '*')) { q.push({encode(i-1,j,true,ud), nn}); } //left
+        if (i < m-1 && board[j][i+1] != '*' && (lr || i == 0   || board[j][i-1] != '*')) { q.push({encode(i+1,j,true,ud), nn}); } //right
     }
 
     // Generate list of moves
     vector<ll> moves;
     moves.push_back(lastNode);
-    ll prevNode = lastNode;
-    while (prevNode != start) {
-        prevNode = parent[prevNode]; 
-        moves.push_back(prevNode);
-    }
+    while (moves.back() != start) { moves.push_back(parent[moves.back()]); }
     reverse(moves.begin(), moves.end());
 
-
+    // DEBUG:
+    //for (auto mm : moves) { 
+    //    int ii, jj;
+    //    bool lr, ud;
+    //    decode(ii,jj,lr,ud,mm);
+    //    cout << "DEBUG: " << mm << " " << ii << " " << jj << " " << lr << " " << ud << endl;
+    //}
 
     // Execute the moves
     ll idx = 0;
     bool lrflipped = false;
     bool udflipped = false;
-    while (idx < moves.size()-1) {
+    while (idx < (ll) moves.size() - 1) {
         int lasti, lastj, curi, curj;
         bool zz1, zz2;
         decode(lasti,lastj,zz1,zz2,moves[idx]);
@@ -97,7 +100,7 @@ void solve() {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    freopen("811D.in1","r",stdin);
+    //freopen("811D.in54","r",stdin);
     solve();
     return 0;
 }
