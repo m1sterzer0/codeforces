@@ -8,7 +8,9 @@ const ll infll = 9223372036854775807LL;
 void solve() {
     ll n; cin >> n;
     vector<ll> a(n+1);
-    for (ll i = 1; i <= n; i++) { cin >> a[i]; }
+    for (ll i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
     vector<vector<ll>> adj(n+1);
     for (ll i = 2; i <= n; i++) {
         ll x; cin >> x;
@@ -16,8 +18,6 @@ void solve() {
         adj[i].push_back(x);
     }
 
-    // Invariant is that the xor of all nodes at same depth parity as the leaves is zero in a losing position
-    
     function<ll(ll,ll)> ds = [&](ll nn, ll par) {
         for (auto c : adj[nn]) {
              if (c == par) continue;
@@ -45,7 +45,6 @@ void solve() {
     ll startingXor = 0;
     for (auto x : black) startingXor = startingXor ^ x;
     for (ll i = 0; i < (ll) black.size(); i++) { black[i] = black[i] ^ startingXor; }
-    sort(black.begin(),black.end());
 
     map<ll,ll> redCount;
     for (auto r : red) { 
@@ -53,13 +52,16 @@ void solve() {
         else                        redCount[r] += 1;
     }
 
+
     ll ans = 0;
     // Case 1: Soliman already starts in a losing position, so we need to make a "dummy" move.
+    ll redsize = red.size();
+    ll blacksize = black.size();
     if (startingXor == 0) {
-        ans += red.size() * (red.size() - 1) / 2;
-        ans += black.size() * (black.size() - 1) / 2;
+        ans += redsize * (redsize-1LL) / 2LL;
+        ans += blacksize * (blacksize-1LL) / 2LL;
     }
-    for (auto b : black) { ans += redCount.count(b); }
+    for (auto b : black) { ans += redCount.count(b) > 0 ? redCount[b] : 0LL; }
 
     cout << ans << endl;
 }
@@ -67,7 +69,7 @@ void solve() {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    //freopen("812E.in6","r",stdin);
+    //freopen("812E.in10b","r",stdin);
     solve();
     return 0;
 }
