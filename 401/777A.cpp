@@ -16,6 +16,7 @@ uint64_t solveit(uint64_t rot, uint64_t x) {
         if (rot == 4 || rot == 5) { return 1; }
         return 2;
     }
+    return 0; // Shouldn't get here.
 }
 
 void solve() {

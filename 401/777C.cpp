@@ -10,9 +10,9 @@ void solve() {
     int elems = n*m;
     for (int i = 0; i < elems; i++) { cin >> a[i]; }
     int idx = n*m - 1;
-    for (int i = 0; i < m; i++) { dp[idx--] = n-1; }
+    for (unsigned int i = 0; i < m; i++) { dp[idx--] = n-1; }
     for (int j = n-2; j >= 0; j--) {
-        for (int i = 0; i < m; i++) {
+        for (unsigned int i = 0; i < m; i++) {
             if (a[idx] <= a[idx+m]) { dp[idx] = dp[idx+m];  }
             else                    { dp[idx] = j;          }
             idx--;
@@ -21,7 +21,7 @@ void solve() {
     idx = n*m - 1;
     for (int j = n-1; j >= 0; j--) {
         dp2[j] = j;
-        for (int i = 0; i < m; i++) {
+        for (unsigned int i = 0; i < m; i++) {
             if (dp[idx] > dp2[j]) { dp2[j] = dp[idx]; }
             idx--;
         }

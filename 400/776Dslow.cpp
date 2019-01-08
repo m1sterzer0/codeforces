@@ -105,7 +105,7 @@ bool twoSatStruct::postwork(map<uint32_t,bool> &sol) {
     // only set loops to true as we must 
     for (auto n : nodevec) { ssc[sscnum[n]].insert(n); sol[n] = false; }
 
-    for (int i = 0; i < counter; i++) {
+    for (uint32_t i = 0; i < counter; i++) {
         bool sscval = false;
         for (auto n : ssc[i]) {
             if (sol[n]) { sscval = true; break; }
@@ -121,7 +121,7 @@ bool twoSatStruct::postwork(map<uint32_t,bool> &sol) {
 
 void solve() {
     uint32_t n,m; cin >> n >> m;
-    int x,y;
+    uint32_t x,y;
     vector<bool> roomStart(n+1);
     for (uint32_t i = 1; i <= n; i++) { cin >> x; roomStart[i] = (x == 1); }
     vector<vector<uint32_t>> roomSwitches(n+1);

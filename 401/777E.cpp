@@ -20,7 +20,7 @@ struct dp {
         auto nn = radius.size();
         if (nn == 0) return 0;
         if (a >= radius[nn-1]) { return 0; }
-        for (int i = 0; i < nn; i++) {                   // Can be bin searched
+        for (int i = 0; i < (int) nn; i++) {                   // Can be bin searched
             if (a < radius[i]) { return height[i]; }
         }
         return 0; // SHOULDN'T GET HERE
@@ -29,10 +29,10 @@ struct dp {
         auto nn = radius.size();
         if (nn != 0) {
             int i;
-            for (i = 0; i < nn; i++) {                   // Can be bin searched
+            for (i = 0; i < (int) nn; i++) {                   // Can be bin searched
                 if (htot >= height[i]) { break; }
             }
-            if (i < nn) { radius.resize(i); height.resize(i); }
+            if (i < (int) nn) { radius.resize(i); height.resize(i); }
         }      
         radius.push_back(b);
         height.push_back(htot);
