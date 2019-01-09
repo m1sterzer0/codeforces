@@ -74,7 +74,7 @@ void solve() {
         dfs(nn,-1);
         rawans += dp[nn][0];
     }
-    double ans = rawans * PI_D;
+    double ans = (double) rawans * PI_D;
     printf("%.10e\n", ans);
 }
 

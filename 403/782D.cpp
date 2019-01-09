@@ -146,7 +146,7 @@ bool twoSatStruct::postwork(vector<bool> &sol) {
     // only set loops to true as we must 
     for (uint32_t n = 0; n < 2*offset; n++) { ssc[sscnum[n]].push_back(n); sol[n] = false; }
 
-    for (int i = 0; i < counter; i++) {
+    for (uint32_t i = 0; i < counter; i++) {
         bool sscval = false;
         for (auto n : ssc[i]) {
             if (sol[n]) { sscval = true; break; }
@@ -162,7 +162,7 @@ bool twoSatStruct::postwork(vector<bool> &sol) {
 
 
 void solve() {
-    int n;  cin >> n;
+    uint32_t n;  cin >> n;
     vector<string> optiona(n);
     vector<string> optionb(n);
     string a,b;
@@ -202,10 +202,10 @@ void solve() {
 
     twoSatStruct t;
     vector<bool> sol;
-    auto res = t.twoSat(constraints,(uint32_t)n, sol);
+    auto res = t.twoSat(constraints,n, sol);
     if (res) {
         cout << "YES" << endl;
-        for (int i = 0; i < n; i++) { cout << (sol[i] ? optiona[i] : optionb[i]) << endl; } 
+        for (uint32_t i = 0; i < n; i++) { cout << (sol[i] ? optiona[i] : optionb[i]) << endl; } 
     } else {
         cout << "NO" << endl;
     }

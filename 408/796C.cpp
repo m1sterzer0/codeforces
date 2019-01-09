@@ -18,8 +18,8 @@ void solve() {
     // Get the count of the maximum values
     // Get the count of the maxmimum values minus 1
     int mymax  = *max_element(next(a.begin()),a.end());
-    int cmax   = count(next(a.begin()),a.end(),mymax);
-    int cmaxm1 = count(next(a.begin()),a.end(),mymax-1);
+    int cmax   = (int) count(next(a.begin()),a.end(),mymax);
+    int cmaxm1 = (int) count(next(a.begin()),a.end(),mymax-1);
 
     int current = mymax + 2;
     for (int i = 1; i <= n; i++) {

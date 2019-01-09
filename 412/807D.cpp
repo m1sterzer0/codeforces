@@ -27,18 +27,18 @@ void solve() {
     mh.push(0);
     for (ll i = 0; i < 5; i++) {
         if ((scores[0][i] >= 0 && scores[1][i] < 0) || (scores[0][i] >= 0 && scores[1][i] >= 0 && scores[0][i] < scores[1][i])) {
-            if (2  * correct[i] > n) mh.push(2*correct[i] - n);
-            if (4  * correct[i] > n) mh.push(4*correct[i] - n);
-            if (8  * correct[i] > n) mh.push(8*correct[i] - n);
-            if (16 * correct[i] > n) mh.push(16*correct[i] - n);
-            if (32 * correct[i] > n) mh.push(32*correct[i] - n);
+            if (2  * correct[i] > n) mh.push(2*correct[i]  - (int) n );
+            if (4  * correct[i] > n) mh.push(4*correct[i]  - (int) n );
+            if (8  * correct[i] > n) mh.push(8*correct[i]  - (int) n );
+            if (16 * correct[i] > n) mh.push(16*correct[i] - (int) n );
+            if (32 * correct[i] > n) mh.push(32*correct[i] - (int) n );
         }
         else if (scores[0][i] >= 0 && scores[1][i] >= 0 && scores[0][i] < scores[1][i]) {
-            if (32 * correct[i] <= n) { ll x = (n - 32 * correct[i]) / 31 + 1; mh.push(x); } 
-            if (16 * correct[i] <= n) { ll x = (n - 16 * correct[i]) / 15 + 1; mh.push(x); } 
-            if ( 8 * correct[i] <= n) { ll x = (n -  8 * correct[i]) /  7 + 1; mh.push(x); }  
-            if ( 4 * correct[i] <= n) { ll x = (n -  4 * correct[i]) /  3 + 1; mh.push(x); } 
-            if ( 2 * correct[i] <= n) { ll x = (n -  2 * correct[i]) /  1 + 1; mh.push(x); } 
+            if (32 * correct[i] <= n) { ll x = (n - 32 * correct[i]) / 31 + 1; mh.push((int) x); } 
+            if (16 * correct[i] <= n) { ll x = (n - 16 * correct[i]) / 15 + 1; mh.push((int) x); } 
+            if ( 8 * correct[i] <= n) { ll x = (n -  8 * correct[i]) /  7 + 1; mh.push((int) x); }  
+            if ( 4 * correct[i] <= n) { ll x = (n -  4 * correct[i]) /  3 + 1; mh.push((int) x); } 
+            if ( 2 * correct[i] <= n) { ll x = (n -  2 * correct[i]) /  1 + 1; mh.push((int) x); } 
         }
     }
 

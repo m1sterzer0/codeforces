@@ -19,14 +19,14 @@ ll findBestTwo(vector<fountain> &v, ll c) {
 
     vector<fountain> myStack;
     myStack.push_back(v[0]);
-    for (ll i = 1; i < v.size(); i++) {
+    for (ll i = 1; i < (ll) v.size(); i++) {
         if (c >= v[i].p + myStack[0].p) {
             while (c < v[i].p + myStack[midx].p) { midx--; }
             ll trial = v[i].b + myStack[midx].b;
             res = max(res,trial);
         }
 
-        if (v[i].b > myStack.back().b && midx == myStack.size()-1) {
+        if (v[i].b > myStack.back().b && midx == (ll) myStack.size()-1) {
             while (!myStack.empty() && myStack.back().p == v[i].p) { myStack.pop_back(); midx--; }
             myStack.push_back(v[i]); midx++;
         }

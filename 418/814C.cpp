@@ -29,7 +29,7 @@ void solve() {
     for (char c = 'a'; c <= 'z'; c++) {
         for (ll m = 1; m <= n; m++) {
             ll mykey = 26 * (m-1) + (c - 'a');
-            ans[mykey] = solveit(s,m,c);
+            ans[mykey] = (int) solveit(s,m,c);
         }
     }
 

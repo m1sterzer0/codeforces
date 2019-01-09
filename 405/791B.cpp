@@ -59,8 +59,8 @@ void solve() {
     tarjanSCC t;
     t.ssc(adj,sscout,1,n);
     int neededEdges = 0;
-    for (int i = 0; i < sscout.size(); i++) {
-        int s = sscout[i].size();
+    for (int i = 0; i < (int) sscout.size(); i++) {
+        int s = (int) sscout[i].size();
         if (s > 1000) { neededEdges = 1000000; }
         else { neededEdges += s * (s-1) / 2; }
         if (neededEdges > m) break;

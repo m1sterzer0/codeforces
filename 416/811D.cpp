@@ -24,8 +24,8 @@ void solve() {
     function<void(int&,int&,bool&,bool&,ll)> decode = [&](int &i, int &j, bool &lr, bool &ud, ll nodenum) {
         ll bs = m*n;
         ll base = nodenum % bs;
-        j = base / m;
-        i = base % m;
+        j = (int) (base / m);
+        i = (int) (base % m);
         if (nodenum < bs)        { lr = true;  ud = true;  }
         else if (nodenum < 2*bs) { lr = true;  ud = false; }
         else if (nodenum < 3*bs) { lr = false; ud = true;  }

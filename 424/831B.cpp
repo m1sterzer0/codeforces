@@ -11,11 +11,13 @@ void solve() {
     map<char,char> t;
     for (ll i = 0; i < 26; i++) { t[s1[i]] = s2[i]; }
     string s3; cin >> s3;
+    #pragma GCC diagnostic ignored "-Wconversion"
     for (auto c : s3) {
         if (c >= 'a' && c <= 'z') { cout << t[c]; }
         else if (c >= 'A' && c <= 'Z') { c += 32; c = t[c]; c -= 32; cout << c; }
         else { cout << c; }
     }
+    #pragma GCC diagnostic pop
     cout << endl;
 }
 

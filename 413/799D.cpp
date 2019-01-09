@@ -26,7 +26,7 @@ void solve() {
             return (a >= targa && b >= targb);
         }
 
-        return (a < targa) && dfs(a*sizes[i],b,i+1,imax) || (b < targb) &&  dfs(a, b*sizes[i],i+1,imax);
+        return ((a < targa) && dfs(a*sizes[i],b,i+1,imax)) || ((b < targb) &&  dfs(a, b*sizes[i],i+1,imax));
     };
 
     for (ll ii = 0; ii < 2; ii++) {

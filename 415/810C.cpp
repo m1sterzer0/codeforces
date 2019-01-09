@@ -15,7 +15,7 @@ inline ull minv(ull x) { return mpow(x,mod-2); }
 void solve() {
     ull n; cin >> n;
     vector<ull> x(n);
-    for (ll i = 0; i < n; i++) { cin >> x[i]; }
+    for (ll i = 0; i < (ll) n; i++) { cin >> x[i]; }
     sort(x.begin(),x.end());
 
     // Trick is f(a) = max_elem - min_elem, so sum(f(a)) = sum(max_elem) - sum(min_elem), each of which doesn't need O(n^2) to compute.

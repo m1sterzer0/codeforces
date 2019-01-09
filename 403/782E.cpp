@@ -31,7 +31,7 @@ void solve() {
     //Now just divide the path up into chunks
     int maxvertices = 2 * n / k;
     if (k * maxvertices < 2 * n) { maxvertices++; }
-    int pidx = 0; int pathsize = path.size();
+    int pidx = 0; int pathsize = (int) path.size();
     for (int i = 0; i < k; i++) {
         if (pidx == pathsize) {
             cout << "1 1" << endl;

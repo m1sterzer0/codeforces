@@ -41,7 +41,7 @@ void solve() {
     engine.init(200000);
     string s;
     cin >> s;
-    int n = s.size();
+    int n = (int) s.size();
     vector<int> left(n,0), right(n,0);
     int l = 0;
     for (int i = 0; i < n; i++) { if (s[i] == '(') l++;  left[i] = l;  }

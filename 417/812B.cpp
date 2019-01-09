@@ -35,9 +35,9 @@ void solve() {
     if (topFloor == n) { cout << 0 << endl; return; } 
 
     array<array<ll, 2>, 15> dp;
-    dp[topFloor][0] = solveFloor(topFloor,0,-1);
-    dp[topFloor][1] = solveFloor(topFloor,1,-1);
-    for (int i = topFloor+1; i < n; i++) {
+    dp[topFloor][0] = solveFloor((int) topFloor,0,-1);
+    dp[topFloor][1] = solveFloor((int) topFloor,1,-1);
+    for (int i = (int) topFloor+1; i < n; i++) {
         dp[i][0] = min(1 + solveFloor(i,0,0) + dp[i-1][0], 1 + solveFloor(i,0,1) + dp[i-1][1]);
         dp[i][1] = min(1 + solveFloor(i,1,0) + dp[i-1][0], 1 + solveFloor(i,1,1) + dp[i-1][1]);
     }

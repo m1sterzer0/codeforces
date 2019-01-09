@@ -25,12 +25,12 @@ void solve() {
     for (int i = 0; i < n; i++) { cin >> a[i]  >> b[i]; }
     ull powerRequired = 0;
     for (int i = 0; i < n; i++) { powerRequired += a[i]; }
-    if (powerRequired <= p) { cout << -1 << endl; return; }
+    if (powerRequired <= (ull) p) { cout << -1 << endl; return; }
     ull energyAvailable = 0;
     for (int i = 0; i < n; i++) { energyAvailable += b[i]; }
     
     double l = 0.000;
-    double r = (double) 1.5 * energyAvailable / (powerRequired - p); // Just to be safe
+    double r = 1.5 * (double) energyAvailable / (double) (powerRequired - p); // Just to be safe
     while ((r-l) / (0.5*(r+l)) >= 1e-5) {
         double m = 0.5*(r+l);
         if (check(m,n,a,b,p)) l = m;

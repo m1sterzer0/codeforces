@@ -21,23 +21,23 @@ void solve() {
 
     if (q == 0) {
         if (bad.count(0) == 0) { cout << "inf" << endl; return; }
-        else { cout << (bad.count(b1) == 0 ? 1 : 0) << endl; return; } 
+        else { cout << (bad.count((int) b1) == 0 ? 1 : 0) << endl; return; } 
     } 
     
     if (q == 1) {
-        if (bad.count(b1) == 0) { cout << "inf" << endl; return; }
+        if (bad.count((int) b1) == 0) { cout << "inf" << endl; return; }
         else                    { cout << 0 << endl;     return; }
     }
     
     if (q == -1) {
-        if ((bad.count(b1) > 0) && (bad.count(-b1) > 0)) { cout << 0 << endl; return; }
+        if ((bad.count((int) b1) > 0) && (bad.count((int) -b1) > 0)) { cout << 0 << endl; return; }
         else                                             { cout << "inf" << endl; return; }
     }
    
     ll tt = b1;
     int ans = 0;
     while ((tt <= l) && (tt >= -l)) {
-        if (bad.count(tt) == 0) { ans += 1; }
+        if (bad.count((int) tt) == 0) { ans += 1; }
         tt *= q;
     }
     cout << ans << endl;

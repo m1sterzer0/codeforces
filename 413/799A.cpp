@@ -10,19 +10,19 @@ void solve() {
     //without the oven
     priority_queue<int, vector<int>, greater<int>> mh;
     priority_queue<int, vector<int>, greater<int>> mh2;
-    mh.push(t);
+    mh.push((int) t);
     ll cakes = 0;
     ll tt = 0;
     while (cakes < n) {
-        tt = mh.top(); mh.pop(); cakes += k; mh.push(tt+t);
+        tt = mh.top(); mh.pop(); cakes += k; mh.push((int) tt+ (int) t);
     } 
 
-    mh2.push(t);
-    mh2.push(d+t);
+    mh2.push((int) t);
+    mh2.push((int) d+ (int) t);
     cakes = 0;
     ll tt2 = 0;
     while (cakes < n) {
-        tt2 = mh2.top(); mh2.pop(); cakes += k; mh2.push(tt2+t);
+        tt2 = mh2.top(); mh2.pop(); cakes += k; mh2.push((int) tt2 + (int) t);
     } 
     if (tt2 < tt) cout << "YES" << endl;
     else          cout << "NO"  << endl;

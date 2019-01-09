@@ -7,7 +7,7 @@ void solve() {
     string s;
     cin >> s;
     // Count the VKs in the string
-    int ss = s.size();
+    int ss = (int) s.size();
     int count = 0;
     for (int i = 0; i < ss-1; i++) {
         if (s[i] == 'V' && s[i+1] == 'K') { count++; }

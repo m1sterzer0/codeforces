@@ -7,14 +7,14 @@ void solve() {
     string s;
     cin >> s;
     int i1 = 0;
-    int i2 = s.size() - 1;
+    int i2 = (int) s.size() - 1;
     int mismatches = 0;
     while (i2 > i1) {
         if (s[i1] != s[i2]) mismatches += 1;
         i1++; i2--;
     }
-    if ((mismatches == 1) || (mismatches == 0) && (s.size() % 2 == 1)) cout << "YES" << endl;
-    else                                                               cout << "NO"  << endl;
+    if ((mismatches == 1) || ((mismatches == 0) && ((int) s.size() % 2 == 1))) cout << "YES" << endl;
+    else                                                                       cout << "NO"  << endl;
 }
 
 int main() {

@@ -8,7 +8,7 @@ void solve() {
     vector<string> ss(n);
     vector<int>    ii(n);
     for (int i = 0; i < n; i++) { cin >> ss[i]; ss[i] = ss[i] + ss[i]; }
-    int slen = ss[0].size() / 2;
+    int slen = (int) ss[0].size() / 2;
     int best = 1000000000;
     for (int i = 0; i < slen; i++) {
         int current = i;

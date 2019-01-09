@@ -30,7 +30,9 @@ void solve() {
     sort(p.begin(),p.end());
     double left = p.front().x;
     double right = p.back().x;
+    #pragma GCC diagnostic ignored "-Wfloat-equal"
     if (left == right) { printf("%.8f\n",0.0); return; }
+    #pragma GCC diagnostic pop
     double lefttime(0.0), righttime(1e9);
     while (righttime - lefttime > 1e-7 || lefttime - righttime > 1e-7) {
         double mid = 0.5*(left+right);

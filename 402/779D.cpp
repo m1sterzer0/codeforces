@@ -7,8 +7,8 @@ bool eval(string a, string b, vector<int> &perm, int n) {
     vector<bool> crossed(a.size(),false);
     for (int i = 0; i < n; i++) { crossed[perm[i]] = true; }
     int matched = 0;
-    int target = b.size();
-    int alen = a.size();
+    int target = (int) b.size();
+    int alen = (int) a.size();
     for (int i = 0; i < alen; i++) {
         if (crossed[i]) continue;
         if (a[i] != b[matched]) continue;
@@ -22,7 +22,7 @@ void solve() {
     string a,b;
     cin >> a;
     cin >> b;
-    int alen = a.size();
+    int alen = (int) a.size();
     vector<int> perm(alen);
     for (int i = 0; i < alen; i++) { cin >> perm[i]; perm[i]--; }  //to get us back to zero indexing
     int l = 0;

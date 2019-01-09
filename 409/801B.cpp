@@ -7,7 +7,7 @@ void solve() {
     string x,y;
     cin >> x;
     cin >> y;
-    int ss = x.size();
+    int ss = (int) x.size();
     for (int i = 0; i < ss; i++) {
         if (x[i] < y[i]) { cout << -1 << endl; return; }
     }
