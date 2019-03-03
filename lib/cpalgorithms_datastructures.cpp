@@ -189,7 +189,6 @@ struct unionFind {
 struct unionFindPaintingSubarray {
     ll L;
     vector<vector<ll>> query;
-
     vector<ll> parent;
     vector<ll> answer;
     vector<ll> scratch;
@@ -237,17 +236,165 @@ struct unionFindPaintingSubarray {
     } 
 };
 
-// * Support distance up to representative
-// * Computing the parity of the paths to the leader.
-// * Offline RMQ in O(alpha(n))
-// * Offline LCA in O(alpha(n)) on average
-// * Storing the DSU explicityly in a set list
-// * Storing the DSU by maintaining a clear tree structure / Online bridge finding in O(alpha(n)) on average
+// * Support distance up to representative (see web page for details)
+// * Computing the parity of the paths to the leader. (see web page for details)
+
+
+// * Offline RMQ in O(alpha(n)) // Arpa's Trick
+//   -- Read all the queries and sort the queries by the R.
+//   -- Use a unionFind stucture and a stack to give the min as a function of L.
+
+struct unionFindRMQQuery { ll L; ll R; ll idx; };
+bool operator< (const unionFindRMQQuery &a, const unionFindRMQQuery &b) { return a.R < b.R; }
+struct unionFindRMQ {
+    vector<ll> parent;
+    vector<ll> nodeSize;
+    vector<ll> scratch;
+    vector<ll> minVal;
+
+    void doit(vector<ll> &a, deque<unionFindRMQQuery> &q, vector<ll> &ans) {
+        stack<ll> s;
+        ll n = (ll) a.size();
+        minVal.assign(n,LONG_LONG_MAX);
+        parent.assign(n,0);
+        nodeSize.assign(n,1);
+        ans.resize(q.size());
+        sort(q.begin(),q.end());
+        reverse(q.begin(),q.end());
+        REP(i,n) {
+            parent[i] = i;
+            while (!s.empty() && a[i] < a[s.top()]) {
+                join(i,s.top());
+                minVal[find(i)] = a[i];
+                s.pop();
+            }
+            s.push(i);
+            while (!q.empty() && q.back().R == i) {
+                ans[q.back().idx] = minVal[find(q.back().L)];
+                q.pop_back();
+            }
+        }
+    }
+
+    ll find(ll v) {
+        while (v != parent[v]) { scratch.push_back(v); v = parent[v]; }
+        for (auto s : scratch) parent[s] = v;
+        scratch.clear();
+        return v;
+    }
+
+    void join(ll u, ll v) {
+        u = find(u);
+        v = find(v);
+        if (u == v) return;
+        if (nodeSize[u] < nodeSize[v]) swap(u,v);
+        parent[v] = u;
+        nodeSize[u] += nodeSize[v];
+        nodeSize[v] = 0; // Not necessary, but helps to have a way to find if a node is a parent.
+    } 
+};
+
+// * Offline LCA in O(alpha(n)) on average (in an upcoming session)
+// * Storing the DSU explicityly in a set list (see the web page)
+// * Storing the DSU by maintaining a clear tree structure / Online bridge finding in O(alpha(n)) on average (see the web page)
 
 ////////////////////////////////////////////////////////////
 // SUBSECTION B2: Fenwick Tree
 // https://cp-algorithms.com/data_structures/fenwick.html
 ////////////////////////////////////////////////////////////
+
+// One-index BIT array
+struct BIT1 {
+    ll n;
+    vector<ll> arr;
+    BIT1(ll nin) { n = nin; arr.assign(n+1,0LL); }
+    void add(ll x, ll v) {
+        for (ll xx = x; xx <= n; xx += (xx & -xx)) arr[xx] += v;
+    }
+    ll query(ll x) {
+        ll ans = 0;
+        for (ll xx = x; xx > 0; xx -= (xx & -xx)) ans += arr[xx];
+        return ans;
+    }
+    ll query(ll l, ll r) { return query(r) - query(l-1);  }
+};
+
+// Zero-indexed BIT array -- just add one internally
+struct BIT0 {
+    ll n;
+    vector<ll> arr;
+    BIT0(ll nin) { n = nin; arr.assign(n+1,0LL); }
+    void add(ll x, ll v) {
+        for (ll xx = x+1; xx <= n; xx += (xx & -xx)) arr[xx] += v;
+    }
+    ll query(ll x) {
+        ll ans = 0;
+        for (ll xx = x+1; xx > 0; xx -= (xx & -xx)) ans += arr[xx];
+        return ans;
+    }
+    ll query(ll l, ll r) { return query(r) - query(l-1);  }
+};
+
+// 2-D One-index BIT
+struct BIT12D {
+    ll n; ll m;
+    vector<vector<ll>> arr;
+
+    BIT12D(ll nin, ll min) {
+        n = nin;
+        m = min;
+        arr.resize(n+1);
+        FORE(i,0,n) { arr[i].assign(m+1,0LL); }
+    } 
+
+    // Updates all rectangles from x,y to n,m with value (add or xor both work)
+    void add(ll x, ll y, ll v) {
+        for (ll xx = x; xx <= n; xx += (xx & -xx)) {
+            for (ll yy = y; yy <= m; yy += (yy & -yy)) {
+                arr[xx][yy] += v;
+            }
+        }
+        return;
+    }
+
+    ll query(ll x, ll y) {
+        ll ans = 0;
+        for (ll xx = x; xx > 0; xx -= (xx & -xx)) {
+            for (ll yy = y; yy > 0; yy -= (yy & -yy)) {
+                ans += arr[xx][yy];
+            }
+        }
+        return ans;
+    }
+};
+
+// Point updates and range queries -- regular BIT
+// Range updates and point queries
+//    If you want to increment [l,r] by m, do an add(l,m) and add(r+1,-m) and do queries as normal.
+// Range updates and range queries
+
+struct BIT1RANGE {
+    ll n;
+    vector<ll> arr1;
+    vector<ll> arr2;
+    BIT1RANGE(ll nin) { n = nin; arr1.assign(n+1,0LL); arr2.assign(n+1,0LL); }
+    void add(ll l, ll r, ll v) {
+        ll v2 = v * (l-1);
+        ll v3 = v * r;
+        for (ll xx = l;   xx <= n; xx += (xx & -xx)) { arr1[xx] += v; arr2[xx] += v2; }
+        for (ll xx = r+1; xx <= n; xx += (xx & -xx)) { arr1[xx] -= v; arr2[xx] -= v3; }
+    }
+
+    ll query(ll x) {
+        ll q1 = 0;
+        ll q2 = 0;
+        for (ll xx = x; xx > 0; xx -= (xx & -xx)) { q1 += arr1[xx]; q2 += arr2[xx]; }
+        return q1 * x - q2;
+    }
+
+    ll query(ll l, ll r) { return query(r) - query(l-1);  }
+};
+
 
 ////////////////////////////////////////////////////////////
 // SUBSECTION B3: Sqrt Decomposition
